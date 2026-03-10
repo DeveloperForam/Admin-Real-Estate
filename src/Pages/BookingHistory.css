@@ -1,0 +1,154 @@
+/* ================= PAGE LAYOUT ================= */
+.booking-container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f8f9fb;
+}
+
+/* ================= TITLE ================= */
+.page-title {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* ================= SUMMARY BOX ================= */
+.summary-box {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  background: #ffffff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.summary-box div {
+  flex: 1;
+  text-align: center;
+}
+
+/* ================= FORM ================= */
+.booking-form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+/* ================= INPUTS ================= */
+.booking-form input,
+.booking-form select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  border-color: #3498db;
+}
+
+/* ================= BUTTON ================= */
+.booking-form button {
+  grid-column: span 2;
+  padding: 12px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.booking-form button:hover {
+  background: #2980b9;
+}
+
+.booking-form button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* ================= TABLE ================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+thead {
+  background: #34495e;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px 14px;
+  text-align: center;
+  font-size: 14px;
+}
+
+th {
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background: #f2f4f7;
+}
+
+tbody tr:hover {
+  background: #e8f1ff;
+}
+
+/* ================= EMPTY STATE ================= */
+tbody td[colspan="4"] {
+  padding: 20px;
+  font-style: italic;
+  color: #777;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .summary-box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .booking-form {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-form button {
+    grid-column: span 1;
+  }
+
+  th,
+  td {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+.custom-datepicker {
+  width: 100%;
+  padding: 8px;
+}

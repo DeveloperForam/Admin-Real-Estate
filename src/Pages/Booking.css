@@ -1,0 +1,213 @@
+/* ===========================
+   PAGE CONTAINER
+=========================== */
+
+.booking-container {
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  min-height: 100vh;
+}
+
+.page-title {
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ===========================
+   ADD BOOKING BUTTON
+=========================== */
+
+.add-booking-btn {
+  padding: 10px 18px;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.add-booking-btn:hover {
+  background-color: #1565c0;
+}
+
+/* ===========================
+   FORM STYLING
+=========================== */
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-form label {
+  margin-top: 10px;
+  font-weight: 500;
+  color: #444;
+}
+
+.booking-form input,
+.booking-form select {
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  border-color: #1e88e5;
+}
+
+.booking-form button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.booking-form button:hover {
+  background-color: #218838;
+}
+
+.booking-form button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   TABLE STYLING
+=========================== */
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table th {
+  background-color: #1e88e5;
+  color: white;
+  padding: 10px;
+  font-weight: 500;
+}
+
+table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+  background-color: #f2f2f2;
+}
+
+.history-btn {
+  padding: 6px 10px;
+  background-color: #1e88e5;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.history-btn:hover {
+  background-color: #156ebc;
+}
+
+/* ===========================
+   MODAL OVERLAY (Blur Background)
+=========================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ===========================
+   MODAL CONTENT BOX
+=========================== */
+
+.modal-content {
+  background: #ffffff;
+  /* padding: 25px; */
+  width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: popup 0.3s ease;
+}
+
+/* Close Button */
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: red;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+/* ===========================
+   POPUP ANIMATION
+=========================== */
+
+@keyframes popup {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  .booking-container {
+    padding: 15px;
+  }
+}

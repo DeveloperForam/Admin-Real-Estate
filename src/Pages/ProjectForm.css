@@ -1,0 +1,223 @@
+/* ================= FORM PAGE ================= */
+
+.form-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Heading */
+.form-page h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* ================= FORM ================= */
+
+.form-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Labels */
+.form-page label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: -6px;
+}
+
+/* Inputs + Select */
+.form-page input,
+.form-page select {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+}
+
+/* Focus Effect */
+.form-page input:focus,
+.form-page select:focus {
+  border-color: #2563eb;
+  box-shadow: 0px 0px 0px 3px rgba(37, 99, 235, 0.2);
+}
+
+/* File Input */
+.form-page input[type="file"] {
+  padding: 8px;
+  border: none;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn-submit {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  background: #1d4ed8;
+}
+
+/* Cancel Button */
+.btn-close {
+  background: #dcdee0;
+  color: #111827;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 10px;
+}
+
+.btn-close:hover {
+  background: #e5e7eb;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .form-page {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .form-page h2 {
+    font-size: 22px;
+  }
+
+  .btn-submit,
+  .btn-close {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* ================= IMAGE PREVIEW ================= */
+
+.preview-box {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.preview-box h4 {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #374151;
+}
+
+.preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preview-grid img {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #d1d5db;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ================= PREVIEW CARD ================= */
+
+.preview-card {
+  position: relative;
+  width: 95px;
+  height: 95px;
+}
+
+.preview-card img {
+  width: 95px;
+  height: 95px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #d1d5db;
+}
+
+/* Image Number Badge */
+.image-number {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #2563eb;
+  color: white;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* ❌ Remove Button */
+.remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: red;
+  /* color: white; */
+  border: none;
+  font-size: 12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: rgb(211, 21, 21);
+  color: #ffffff;
+}
+
+.preview-box {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.preview-item {
+  position: relative;
+}
+
+.preview-item img {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+}

@@ -1,0 +1,45 @@
+.inquiry-page {
+  padding: 24px;
+}
+
+.inquiry-page h1 {
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.inquiry-table-box {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #2563eb;
+  color: white;
+  padding: 14px;
+  font-size: 14px;
+}
+
+td {
+  padding: 14px;
+  font-size: 14px;
+  color: #334155;
+}
+
+tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tr:hover {
+  background: #eef2ff;
+}
+
+.loading {
+  color: #64748b;
+}

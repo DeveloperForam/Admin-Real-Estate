@@ -1,0 +1,10 @@
+.layout {
+  display: flex;
+}
+
+.main {
+  margin-left: 240px; /* sidebar width */
+  width: calc(100% - 240px);
+  min-height: 100vh;
+  background-color: #f1f5f9;
+}

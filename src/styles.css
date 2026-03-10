@@ -1,0 +1,57 @@
+/* --- Global Reset --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f5f6fa;
+}
+
+/* --- Layout --- */
+.layout {
+  display: flex;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 230px;
+  height: 100vh;
+  background: #2c2f48;
+  color: #fff;
+  padding: 20px;
+  position: fixed;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.sidebar ul li:hover {
+  color: #87cefa;
+}
+
+/* --- Main + Navbar --- */
+.main {
+  margin-left: 230px;
+  width: calc(100% - 230px);
+}
+
+.navbar {
+  background: #fff;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* --- Form Card --- */
