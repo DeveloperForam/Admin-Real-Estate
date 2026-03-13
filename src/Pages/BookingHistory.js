@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api";
 import "./BookingHistory.css";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export default function BookingHistory() {
   const { bookingId } = useParams();
@@ -93,10 +95,131 @@ export default function BookingHistory() {
   // Format number as INR
   const formatINR = (v) => new Intl.NumberFormat("en-IN").format(v || 0);
 
+  const exportInvoicePDF = () => {
+
+  if (!booking) return;
+
+  const doc = new jsPDF();
+
+  const pending = getCurrentPending();
+
+  // ===== Header =====
+
+  doc.setFillColor(0, 102, 204);
+  doc.rect(0, 0, 210, 25, "F");
+
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.text("REAL ESTATE PAYMENT RECEIPT", 105, 15, { align: "center" });
+
+  doc.setTextColor(0,0,0);
+
+  // ===== Company Info =====
+
+  doc.setFontSize(11);
+
+  doc.text("Address: Surat, Gujarat", 14, 42);
+  doc.text("Phone: +91 9876543210", 14, 49);
+
+  // ===== Invoice Details =====
+
+  const today = new Date().toLocaleDateString();
+
+  doc.text(`Invoice Date: ${today}`, 140, 35);
+  doc.text(`House Number: ${booking.houseNumber}`, 140, 42);
+
+  // ===== Booking Summary Box =====
+
+  doc.setDrawColor(200);
+  doc.rect(14, 60, 182, 25);
+
+  doc.setFontSize(12);
+
+  doc.text(`Total Amount : ₹${formatINR(booking.totalAmount)}`, 20, 70);
+  doc.text(`Advance Amount : ₹${formatINR(booking.advancePayment)}`, 20, 78);
+
+  doc.text(
+    `Pending Amount : ${
+      pending <= 0 ? "SOLD" : "₹" + formatINR(pending)
+    }`,
+    120,
+    70
+  );
+
+  // ===== Payment Table =====
+
+  const tableData = history.map((h) => [
+    new Date(h.paymentReceivedDate).toLocaleDateString(),
+    h.paymentMethod.toUpperCase(),
+    "₹" + formatINR(h.amountReceived),
+  ]);
+
+  autoTable(doc, {
+    startY: 95,
+    head: [["Payment Date", "Payment Method", "Amount Received"]],
+    body: tableData,
+    theme: "grid",
+    headStyles: {
+      fillColor: [0,102,204]
+    },
+  });
+
+  // ===== Payment Summary =====
+
+  const totalPaid = history.reduce(
+    (sum, p) => sum + Number(p.amountReceived),
+    0
+  );
+
+  const finalY = doc.lastAutoTable.finalY + 10;
+
+  doc.setFontSize(12);
+
+  doc.text(`Total Paid : ₹${formatINR(totalPaid)}`, 140, finalY);
+  doc.text(
+    `Balance : ${
+      pending <= 0 ? "SOLD" : "₹" + formatINR(pending)
+    }`,
+    140,
+    finalY + 8
+  );
+
+  // ===== Signature =====
+
+  doc.line(150, finalY + 25, 195, finalY + 25);
+  doc.text("Authorized Signature", 150, finalY + 32);
+
+  // ===== Footer =====
+
+  doc.setFontSize(10);
+  doc.text(
+    "Thank you for your business!",
+    105,
+    285,
+    { align: "center" }
+  );
+
+  doc.save(`Invoice_${booking.houseNumber}.pdf`);
+};
+
   return (
     <div className="booking-container">
       <h2 className="page-title">Booking Payment History</h2>
 
+      <button
+  onClick={exportInvoicePDF}
+  style={{
+    background: "#007bff",
+    color: "#fff",
+    border: "none",
+    padding: "8px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    marginBottom: "10px"
+  }}
+>
+  Export Invoice
+</button>
       {booking && (
         <div className="summary-box">
           <div><b>House:</b> {booking.houseNumber}</div>

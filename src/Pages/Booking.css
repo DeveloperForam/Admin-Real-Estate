@@ -211,3 +211,112 @@ table tr:hover {
     padding: 15px;
   }
 }
+
+/* Pagination Container */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Pagination Buttons */
+.pagination button {
+  padding: 6px 14px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* Hover Effect */
+.pagination button:hover {
+  background: #0056b3;
+}
+
+/* Disabled Button */
+.pagination button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Page Text */
+.pagination span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Filter Section Container */
+
+.filter-section {
+  margin: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  background: #ffffff;
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+
+/* Filter Inputs */
+
+.filter-section select,
+.filter-section input {
+  padding: 7px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+
+/* Input Focus */
+
+.filter-section select:focus,
+.filter-section input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0,123,255,0.4);
+}
+
+
+/* Clear Button */
+
+.clear-filter-btn {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 180px;
+}
+
+.clear-filter-btn:hover {
+  background: #b52a37;
+}
+
+
+/* Export Button */
+
+.export-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.export-btn:hover {
+  background: #1e7e34;
+}

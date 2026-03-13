@@ -17,6 +17,7 @@ import { Line, Bar } from "react-chartjs-2";
 
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
   CategoryScale,
@@ -25,7 +26,8 @@ ChartJS.register(
   LineElement,
   BarElement,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
 export default function Dashboard() {
@@ -60,7 +62,34 @@ export default function Dashboard() {
   }
 };
 
-  
+ const chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: true
+    },
+    datalabels: {
+      anchor: "end",   // attach to top of bar
+      align: "top",    // show above bar
+      color: "",
+      font: {
+        weight: "bold",
+        size: 0
+      },
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        stepSize: 1,           // show 1,2,3,4
+        callback: function(value) {
+          return Number.isInteger(value) ? value : null;
+        }
+      }
+    }
+  }
+};
 
   /* ================= FETCH DATA ================= */
 
@@ -299,6 +328,8 @@ const projectSalesChartData = {
 };
 
 function formatIndianCurrency(num) {
+
+  num  = Math.round(num); // Round to nearest integer
   if (num >= 10000000) {
     return "₹ " + (num / 10000000).toFixed(2) + " Cr";
   } else if (num >= 100000) {
@@ -346,20 +377,11 @@ function formatIndianCurrency(num) {
         >
           This Month
         </button>
-
-        <button className="export-btn" onClick={exportExcel}>
-          Export Excel
-        </button>
       </div>
 
       {/* STATS */}
-
+<div className="dashboard-row">
       <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Total Projects</h3>
-          <p className="stat-number">{totalProjects}</p>
-        </div>
-
         <div className="stat-card">
           <h3>Total Bookings</h3>
           <p className="stat-number">{totalBookings}</p>
@@ -367,7 +389,7 @@ function formatIndianCurrency(num) {
 
         <div className="stat-card">
           <h3>Total Booking Amount</h3>
-          <p> ₹{new Intl.NumberFormat("en-IN").format(totalBookingAmount)}</p>
+          <p className="stat-number"> ₹{new Intl.NumberFormat("en-IN").format(totalBookingAmount)}</p>
         </div>
 
         <div className="stat-card">
@@ -376,44 +398,26 @@ function formatIndianCurrency(num) {
         </div>
       </div>
 
-      {/* CHARTS */}
-
-      <div className="dashboard-row">
-        <div className="small-chart-box">
+      <div className="small-chart-box">
           <h3>City Inquiry Chart</h3>
           <div className="chart-wrapper">
-            <Line data={cityChartData} />
+            <Line data={cityChartData} options={chartOptions} />
           </div>
         </div>
 
         <div className="small-chart-box">
           <h3>Project Booking Chart</h3>
           <div className="chart-wrapper">
-            <Bar data={projectChartData} options={currencyOptions} />
+            <Bar data={projectChartData}  options={chartOptions }/>
           </div>
         </div>
-
-        
-      </div>
-       <div className="dashboard-row"> 
-<div className="small-chart-box">
-  <h3>Project Wise Sales</h3>
-  <div className="chart-wrapper">
-    <Bar data={projectSalesChartData} options={currencyOptions}/>
-  </div>
 </div>
-      {/* MONTHLY REVENUE */}
+      
 
-      <div className="small-chart-box">
-        <h3>Monthly Revenue</h3>
-        <div className="chart-wrapper">
-          <Bar data={revenueChartData} />
-        </div>
-      </div>
+      {/* CHARTS */}
+       <div className="dashboard-row"> 
 
-      </div>
-
-      {/* INQUIRIES */}
+          {/* INQUIRIES */}
 
       <div className="notification-box">
         <h2>Recent Inquiries</h2>
@@ -432,6 +436,13 @@ function formatIndianCurrency(num) {
             </div>
           ))}
         </div>
+      </div>
+<div className="small-chart-box">
+  <h3>Project Wise Sales</h3>
+  <div className="chart-wrapper">
+    <Bar data={projectSalesChartData} options={{ ...chartOptions, ...currencyOptions}}/>
+  </div>
+</div>
       </div>
     </div>
   );
