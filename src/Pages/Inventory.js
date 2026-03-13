@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import api from "../api";
 import "./Inventory.css";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function Inventory() {
 
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [bookings, setBookings] = useState([]);
 
@@ -75,6 +79,7 @@ export default function Inventory() {
             <th>Sold</th>
             <th>Available</th>
             <th>Total Price</th>
+            <th>Action</th>
           </tr>
         </thead>
 
@@ -100,6 +105,15 @@ export default function Inventory() {
                     inv.soldAmount
                   )}
                 </td>
+
+                <td>
+  <button
+    className="view-btn"
+    onClick={() => navigate(`/inventory/${project.id}`)}
+  >
+    View
+  </button>
+</td>
               </tr>
             );
           })}

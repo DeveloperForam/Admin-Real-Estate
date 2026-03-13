@@ -1,0 +1,113 @@
+.inventory-view {
+  padding: 30px;
+  background: #f4f6fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.inventory-view h2 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Wing Section */
+
+.wing-section {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.wing-section h3 {
+  margin-bottom: 15px;
+  color: #444;
+}
+
+/* Floor Layout */
+
+.floor-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.floor-label {
+  width: 90px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Flats Grid */
+
+.house-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Flat Box */
+
+.house-box {
+  min-width: 65px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* Status */
+
+.house-box.available {
+  background: #22c55e;
+}
+
+.house-box.booked {
+  background: #ef4444;
+}
+
+.house-box.pending {
+  background: #f59e0b;
+}
+
+/* Hover */
+
+.house-box:hover {
+  transform: scale(1.08);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* Plot Section */
+
+.plot-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.plot-section h3 {
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+
+@media (max-width:768px) {
+
+  .floor-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .floor-label {
+    margin-bottom: 5px;
+  }
+
+}
