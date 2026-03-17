@@ -404,6 +404,146 @@ export default function Bookings() {
 
       </div>
 
+      {showForm && (
+  <div className="modal-overlay" onClick={() => setShowForm(false)}>
+    <div
+      className="modal-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        className="close-btn"
+        onClick={() => setShowForm(false)}
+      >
+        ✖
+      </button>
+
+      <h2 className="page-title">Create Booking</h2>
+
+      <form onSubmit={submitBooking} className="booking-form">
+
+        <label>Booking Date</label>
+        <input
+          type="date"
+          value={form.bookingDate}
+          max={today}
+          required
+          onChange={(e) =>
+            setForm({ ...form, bookingDate: e.target.value })
+          }
+        />
+
+        <label>Select Project</label>
+        <select
+          required
+          value={form.projectId}
+          onChange={(e) => handleProjectChange(e.target.value)}
+        >
+          <option value="">Select Project</option>
+          {projects.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.projectName}
+            </option>
+          ))}
+        </select>
+
+        <label>Select House</label>
+        <select
+          required
+          value={form.houseNumber}
+          onChange={(e) => handleHouseChange(e.target.value)}
+        >
+          <option value="">Select House</option>
+          {houses.map((h) => (
+            <option key={h.houseNumber} value={h.houseNumber}>
+              {h.houseNumber}
+            </option>
+          ))}
+        </select>
+
+        <label>Customer Name</label>
+        <input
+          required
+          value={form.customerName}
+          onChange={(e) =>
+            setForm({ ...form, customerName: e.target.value })
+          }
+        />
+
+        <label>Mobile No</label>
+        <input
+          required
+          maxLength={10}
+          value={form.mobileNo}
+          onChange={(e) =>
+            setForm({ ...form, mobileNo: e.target.value })
+          }
+        />
+
+        <label>Total Sq.Ft</label>
+        <input
+          type="text"
+          value={form.totalSqFeet}
+          onChange={(e) => {
+            const sqFt = Number(e.target.value || 0);
+            const price = Number(form.pricePerSqFeet || 0);
+            const total = sqFt * price;
+
+            setForm((prev) => ({
+              ...prev,
+              totalSqFeet: sqFt,
+              totalAmount: total,
+              pendingAmount: total - Number(prev.advancePayment || 0),
+            }));
+          }}
+        />
+
+        <label>Price per Sq.Ft</label>
+        <input
+          type="text"
+          value={form.pricePerSqFeet}
+          onChange={(e) => {
+            const price = Number(e.target.value || 0);
+            const sqFt = Number(form.totalSqFeet || 0);
+            const total = sqFt * price;
+
+            setForm((prev) => ({
+              ...prev,
+              pricePerSqFeet: price,
+              totalAmount: total,
+              pendingAmount: total - Number(prev.advancePayment || 0),
+            }));
+          }}
+        />
+
+        <label>Total Amount</label>
+        <input readOnly value={formatINR(form.totalAmount)} />
+
+        <label>Booking Amount</label>
+        <input
+          type="text"
+          value={form.advancePayment}
+          onChange={(e) => {
+            const adv = Number(e.target.value || 0);
+            setForm((prev) => ({
+              ...prev,
+              advancePayment: adv,
+              pendingAmount: Number(prev.totalAmount || 0) - adv,
+            }));
+          }}
+        />
+
+        <label>Pending Amount</label>
+        <input readOnly value={formatINR(form.pendingAmount)} />
+
+        <button disabled={loading}>
+          {loading ? "Booking..." : "Book House"}
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
+
       {/* TABLE */}
 
       <table>
