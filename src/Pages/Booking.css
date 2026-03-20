@@ -297,7 +297,8 @@ table tr:hover {
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  margin-left: 180px;
+  margin-left: 170px;
+
 }
 
 .clear-filter-btn:hover {

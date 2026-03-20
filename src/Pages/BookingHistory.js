@@ -95,77 +95,79 @@ export default function BookingHistory() {
   // Format number as INR
   const formatINR = (v) => new Intl.NumberFormat("en-IN").format(v || 0);
 
-  const exportInvoicePDF = () => {
-
+ const exportInvoicePDF = () => {
   if (!booking) return;
 
   const doc = new jsPDF();
-
   const pending = getCurrentPending();
 
-  // ===== Header =====
+  const projectName = booking.projectName || "-";
 
+  // ===== HEADER =====
   doc.setFillColor(0, 102, 204);
-  doc.rect(0, 0, 210, 25, "F");
+  doc.rect(0, 0, 210, 30, "F");
 
-  doc.setTextColor(255,255,255);
+  doc.setTextColor(255, 255, 255);
   doc.setFontSize(18);
-  doc.text("REAL ESTATE PAYMENT RECEIPT", 105, 15, { align: "center" });
+  doc.text("DREAM D'WELLO", 14, 18);
 
-  doc.setTextColor(0,0,0);
+  doc.setFontSize(10);
+  doc.text("Surat, Gujarat | +91 9876543210", 14, 25);
 
-  // ===== Company Info =====
+  doc.setTextColor(0, 0, 0);
+
+  // ===== INVOICE INFO =====
+  const todayDate = new Date().toLocaleDateString();
 
   doc.setFontSize(11);
+  doc.text(`Invoice Date: ${todayDate}`, 140, 40);
+  doc.text(`Invoice No: INV-${booking.houseNumber}`, 140, 46);
 
-  doc.text("Address: Surat, Gujarat", 14, 42);
-  doc.text("Phone: +91 9876543210", 14, 49);
-
-  // ===== Invoice Details =====
-
-  const today = new Date().toLocaleDateString();
-
-  doc.text(`Invoice Date: ${today}`, 140, 35);
-  doc.text(`House Number: ${booking.houseNumber}`, 140, 42);
-
-  // ===== Booking Summary Box =====
-
-  doc.setDrawColor(200);
-  doc.rect(14, 60, 182, 25);
+  // ===== BOOKING DETAILS BOX =====
+  doc.setDrawColor(180);
+  doc.rect(14, 50, 182, 45); // increased height
 
   doc.setFontSize(12);
+  doc.setFont(undefined, "bold");
+  doc.text("Booking Details", 16, 58);
 
-  doc.text(`Total Amount : ₹${formatINR(booking.totalAmount)}`, 20, 70);
-  doc.text(`Advance Amount : ₹${formatINR(booking.advancePayment)}`, 20, 78);
+  doc.setFont(undefined, "normal");
+  doc.setFontSize(11);
 
-  doc.text(
-    `Pending Amount : ${
-      pending <= 0 ? "SOLD" : "₹" + formatINR(pending)
-    }`,
-    120,
-    70
-  );
+  doc.text(`Project Name: ${projectName}`, 16, 66);
+  doc.text(`House Number: ${booking.houseNumber}`, 16, 72);
+  doc.text(`Total Amount: Rs. ${formatINR(booking.totalAmount)}`, 16, 78);
+  doc.text(`Advance Paid: Rs. ${formatINR(booking.advancePayment)}`, 16, 84);
 
-  // ===== Payment Table =====
-
+  // ===== PAYMENT TABLE =====
   const tableData = history.map((h) => [
     new Date(h.paymentReceivedDate).toLocaleDateString(),
     h.paymentMethod.toUpperCase(),
-    "₹" + formatINR(h.amountReceived),
+    "Rs. " + formatINR(h.amountReceived),
   ]);
 
+
   autoTable(doc, {
-    startY: 95,
-    head: [["Payment Date", "Payment Method", "Amount Received"]],
+    startY: 100,
+    head: [["Date", "Method", "Amount"]],
     body: tableData,
     theme: "grid",
+    styles: {
+      fontSize: 10,
+      cellPadding: 3,
+      halign: "center",
+    },
     headStyles: {
-      fillColor: [0,102,204]
+      fillColor: [0, 102, 204],
+      textColor: 255,
+      fontStyle: "bold",
+    },
+    alternateRowStyles: {
+      fillColor: [240, 240, 240],
     },
   });
 
-  // ===== Payment Summary =====
-
+  // ===== TOTAL =====
   const totalPaid = history.reduce(
     (sum, p) => sum + Number(p.amountReceived),
     0
@@ -173,32 +175,45 @@ export default function BookingHistory() {
 
   const finalY = doc.lastAutoTable.finalY + 10;
 
-  doc.setFontSize(12);
+  // ===== SUMMARY BOX =====
+  doc.setDrawColor(180);
+  doc.rect(120, finalY, 76, 32);
 
-  doc.text(`Total Paid : ₹${formatINR(totalPaid)}`, 140, finalY);
+  doc.setFontSize(11);
+  doc.text(`Total Paid: Rs. ${formatINR(totalPaid)}`, 125, finalY + 10);
+
   doc.text(
-    `Balance : ${
-      pending <= 0 ? "SOLD" : "₹" + formatINR(pending)
+    `Pending: ${
+      pending <= 0 ? "SOLD" : "Rs. " + formatINR(pending)
     }`,
-    140,
-    finalY + 8
+    125,
+    finalY + 18
   );
 
-  // ===== Signature =====
+  // ===== STATUS =====
+  doc.setFontSize(14);
 
-  doc.line(150, finalY + 25, 195, finalY + 25);
-  doc.text("Authorized Signature", 150, finalY + 32);
+  if (pending <= 0) {
+    doc.setTextColor(0, 150, 0);
+    doc.text("PAID", 150, finalY + 28);
+  } else {
+    doc.setTextColor(200, 0, 0);
+    doc.text("PENDING", 140, finalY + 28);
+  }
 
-  // ===== Footer =====
+  doc.setTextColor(0, 0, 0);
 
+  // ===== SIGNATURE =====
+  doc.line(140, finalY + 50, 195, finalY + 50);
   doc.setFontSize(10);
-  doc.text(
-    "Thank you for your business!",
-    105,
-    285,
-    { align: "center" }
-  );
+  doc.text("Authorized Signature", 140, finalY + 58);
 
+  // ===== FOOTER =====
+  doc.text("Thank you for your business!", 105, 285, {
+    align: "center",
+  });
+
+  // SAVE
   doc.save(`Invoice_${booking.houseNumber}.pdf`);
 };
 
@@ -222,6 +237,7 @@ export default function BookingHistory() {
 </button>
       {booking && (
         <div className="summary-box">
+          <div><b>Project:</b> {booking.projectId || history.projectId || "-"}</div>
           <div><b>House:</b> {booking.houseNumber}</div>
           <div><b>Total Amount:</b> ₹{formatINR(booking.totalAmount)}</div>
           <div><b>Advance Amount:</b> ₹{formatINR(booking.advancePayment)}</div>

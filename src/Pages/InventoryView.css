@@ -1,113 +1,287 @@
+/* InventoryView.css */
+
 .inventory-view {
-  padding: 30px;
-  background: #f4f6fb;
-  min-height: 100vh;
-  font-family: "Segoe UI", Arial, sans-serif;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
 }
 
 .inventory-view h2 {
-  font-size: 26px;
-  margin-bottom: 25px;
-  font-weight: 600;
   color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+/* Loading state */
+.inventory-view p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 3rem;
 }
 
 /* Wing Section */
-
 .wing-section {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 3rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
 }
 
 .wing-section h3 {
-  margin-bottom: 15px;
-  color: #444;
+  color: #2c3e50;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #3498db;
 }
 
-/* Floor Layout */
-
+/* Floor Row */
 .floor-row {
+  margin-bottom: 1.5rem;
   display: flex;
-  align-items: center;
-  margin-bottom: 12px;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .floor-label {
-  width: 90px;
+  min-width: 80px;
   font-weight: 600;
-  color: #555;
+  color: #34495e;
+  background: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
-/* Flats Grid */
-
+/* House Grid */
 .house-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-}
-
-/* Flat Box */
-
-.house-box {
-  min-width: 65px;
-  text-align: center;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-/* Status */
-
-.house-box.available {
-  background: #22c55e;
-}
-
-.house-box.booked {
-  background: #ef4444;
-}
-
-.house-box.pending {
-  background: #f59e0b;
-}
-
-/* Hover */
-
-.house-box:hover {
-  transform: scale(1.08);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  gap: 0.75rem;
+  flex: 1;
 }
 
 /* Plot Section */
-
 .plot-section {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
 }
 
-.plot-section h3 {
-  margin-bottom: 15px;
+.plot-section .house-grid {
+  margin-top: 1rem;
 }
 
-/* Responsive */
+/* House Box - Base Styles */
+.house-box {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
 
-@media (max-width:768px) {
+.house-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Status-based colors */
+.house-box.available {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  border: 2px solid #27ae60;
+}
+
+.house-box.booked {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  border: 2px solid #c0392b;
+  opacity: 0.9;
+}
+
+.house-box.sold {
+  background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+  border: 2px solid #7f8c8d;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.house-box.blocked {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  border: 2px solid #e67e22;
+  opacity: 0.9;
+}
+
+/* Additional status classes you might have */
+.house-box.reserved {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: 2px solid #2980b9;
+}
+
+.house-box.under-construction {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  border: 2px solid #8e44ad;
+}
+
+/* Tooltip effect on hover */
+.house-box::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  margin-bottom: 5px;
+}
+
+.house-box:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .inventory-view {
+    padding: 1rem;
+  }
+
+  .inventory-view h2 {
+    font-size: 1.5rem;
+  }
+
+  .wing-section {
+    padding: 1rem;
+  }
+
+  .wing-section h3 {
+    font-size: 1.2rem;
+  }
 
   .floor-row {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 0.5rem;
   }
 
   .floor-label {
-    margin-bottom: 5px;
+    min-width: auto;
+    text-align: left;
+    background: none;
+    padding: 0.5rem 0;
   }
 
+  .house-grid {
+    gap: 0.5rem;
+  }
+
+  .house-box {
+    width: 50px;
+    height: 50px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .house-box {
+    width: 45px;
+    height: 45px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Optional: Animation for new items */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.house-box {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Optional: Status indicators for accessibility */
+.house-box.available::before {
+  /* content: "✓"; */
+  margin-right: 2px;
+  font-weight: bold;
+}
+
+.house-box.booked::before {
+  /* content: "✗"; */
+  margin-right: 2px;
+  font-weight: bold;
+}
+
+/* Optional: Custom scrollbar for better UX */
+.inventory-view::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inventory-view::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.inventory-view::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.inventory-view::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Optional: Print styles */
+@media print {
+  .inventory-view {
+    padding: 1cm;
+  }
+
+  .house-box {
+    box-shadow: none;
+    border: 1px solid #000;
+    color: #000;
+    background: #fff !important;
+  }
+
+  .house-box.available {
+    border: 2px solid #27ae60;
+  }
+
+  .house-box.booked {
+    border: 2px solid #e74c3c;
+  }
+
+  .house-box.sold {
+    border: 2px solid #7f8c8d;
+  }
 }
