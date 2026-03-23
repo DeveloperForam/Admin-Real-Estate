@@ -18,7 +18,7 @@ import Inquiry from "./Pages/Inquiry";
 import PrivateRoute from "./components/PrivateRoute";
 import Inventory from "./Pages/Inventory";
 import InventoryView from "./Pages/InventoryView";
-
+import Blog from "./Pages/Blog";
 
 
 import "./styles.css";
@@ -60,6 +60,7 @@ function Layout() {
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/inventory/:projectId" element={<InventoryView />} />
+          <Route path="/blogs" element={<Blog />} />
 
           {/* ✅ BOOKING HISTORY ROUTE */}
        <Route

@@ -18,6 +18,7 @@ export default function Sidebar() {
         <NavLink to="/bookings">Bookings</NavLink>
         {/* <NavLink to="/services">Services</NavLink> */}
         <NavLink to="/inquiry">Inquiries</NavLink>
+        <NavLink to="/blogs">Blogs</NavLink>
         <NavLink to="/inventory">Inventory</NavLink>
       </nav>
     </div>
